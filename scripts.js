@@ -7,55 +7,62 @@ document.addEventListener('DOMContentLoaded', () => {
     const STORAGE_KEY = 'jardin_unlocked_v3';
     const MEMORIES_KEY = 'jardin_memories_v3';
     const FLOWER_DATA = [
-        {
-            id: "rose",
-            code: "ABRAZO",
-            label: "Rosa",
-            type: "pink",
-            message: "Como una rosa, tu abrazo florece incluso en los días más fríos.",
-            gif: "https://i.pinimg.com/originals/23/30/12/233012cc4c5a106de39346da792a0963.gif"
-        },
-        {
-            id: "amaryllis",
-            code: "CAFE",
-            label: "Amaryllis",
-            type: "yellow",
-            message: "Como el sol en la mañana, tu compañía me llena de energía.",
-            gif: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBLUQx7iFo0NekxTwbYztuSZ7peM3mphV22cZczNd7isLToWpldVrFDXLowfTkAftaIc3QYvmXT3N6IVUmskUW7XaSK8l6ZL3_CiBJyiLm8KQBAy7WUCBqMdRv_zeUu7EeSCmQ1CUeWNTb/s1600/YutakaKitamura04.gif"
-        },
-        {
-            id: "lily",
-            code: "SONRISA",
-            label: "Lirio",
-            type: "pink",
-            message: "Tu sonrisa ilumina el jardín más que cualquier amanecer.",
-            gif: "https://i.pinimg.com/originals/74/c3/d5/74c3d5d7eb88471971de78c69b61f1e4.gif"
-        },
-        {
-            id: "gentiana",
-            code: "CAMINATA",
-            label: "Gentiana",
-            type: "soft",
-            message: "Cada paso contigo es una flor nueva en mi memoria.",
-            gif: "https://i.pinimg.com/originals/c9/1d/1a/c91d1aa83c9785af78a2d945675c8f35.gif"
-        },
-        {
-            id: "pinkrose",
-            code: "SILENCIO",
-            label: "Pink Rose",
-            type: "violet",
-            message: "A veces no hacen falta palabras; el silencio contigo también florece.",
-            gif: "https://i.pinimg.com/originals/77/b2/5d/77b25d2fb159134445914ad5d75bc8cd.gif"
-        },
-        {
-            id: "freesia",
-            code: "DESTINO",
-            label: "Freesia",
-            type: "soft",
-            message: "Entre tantas semillas del mundo, el viento nos trajo al mismo jardín.",
-            gif: "https://i.pinimg.com/originals/ad/a7/55/ada7559288f112d7ff599d0623eb972b.gif"
-        }
-    ];
+  {
+    id: "rose",
+    code: "PETALO",
+    label: "Rosa",
+    type: "pink",
+    message: "Como una rosa, tu abrazo florece incluso en los días más fríos.",
+    gif: "https://i.pinimg.com/originals/23/30/12/233012cc4c5a106de39346da792a0963.gif",
+    hint: "Suave y delicado... forma parte de cada flor 🌹"
+  },
+  {
+    id: "amaryllis",
+    code: "JARDIN",
+    label: "Amaryllis",
+    type: "yellow",
+    message: "Como el sol en la mañana, tu compañía me llena de energía.",
+    gif: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBLUQx7iFo0NekxTwbYztuSZ7peM3mphV22cZczNd7isLToWpldVrFDXLowfTkAftaIc3QYvmXT3N6IVUmskUW7XaSK8l6ZL3_CiBJyiLm8KQBAy7WUCBqMdRv_zeUu7EeSCmQ1CUeWNTb/s1600/YutakaKitamura04.gif",
+    hint: "Donde todo florece, donde nace la calma 🌿"
+  },
+  {
+    id: "lily",
+    code: "AROMA",
+    label: "Lirio",
+    type: "pink",
+    message: "Tu sonrisa ilumina el jardín más que cualquier amanecer.",
+    gif: "https://i.pinimg.com/originals/74/c3/d5/74c3d5d7eb88471971de78c69b61f1e4.gif",
+    hint: "Lo invisible que perfuma cada recuerdo ✨"
+  },
+  {
+    id: "gentiana",
+    code: "BROTE",
+    label: "Gentiana",
+    type: "soft",
+    message: "Cada paso contigo es una flor nueva en mi memoria.",
+    gif: "https://i.pinimg.com/originals/c9/1d/1a/c91d1aa83c9785af78a2d945675c8f35.gif",
+    hint: "Antes de ser flor, toda semilla pasa por esto 🌱"
+  },
+  {
+    id: "pinkrose",
+    code: "NECTAR",
+    label: "Pink Rose",
+    type: "violet",
+    message: "A veces no hacen falta palabras; el silencio contigo también florece.",
+    gif: "https://i.pinimg.com/originals/77/b2/5d/77b25d2fb159134445914ad5d75bc8cd.gif",
+    hint: "Lo dulce que las flores guardan para quien las cuida 🐝"
+  },
+  {
+    id: "freesia",
+    code: "LUNA",
+    label: "Freesia",
+    type: "soft",
+    message: "Entre tantas semillas del mundo, el viento nos trajo al mismo jardín.",
+    gif: "https://i.pinimg.com/originals/ad/a7/55/ada7559288f112d7ff599d0623eb972b.gif",
+    hint: "No es una flor, pero también brilla en la noche 🌙"
+  }
+];
+
 
 
     /* ---------- HELPERS ---------- */
@@ -450,12 +457,22 @@ document.addEventListener('DOMContentLoaded', () => {
     checkBtn.addEventListener('click', handleCode);
     codeInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleCode(); });
 
-    hintBtn.addEventListener('click', () => {
-        const remaining = FLOWER_DATA.filter(f => !unlocked.includes(f.code));
-        if (!remaining.length) return flashMessage('¡Todas las flores ya florecieron!');
-        const pick = remaining[Math.floor(Math.random() * remaining.length)];
-        flashMessage(`Pista: flor "${pick.label}" — código tiene ${pick.code.length} letras.`);
-    });
+ hintBtn.addEventListener('click', () => {
+  const remaining = FLOWER_DATA.filter(f => !unlocked.includes(f.code));
+  if (!remaining.length) {
+    flashMessage('🌸 Todas las flores ya florecieron, tu jardín está completo.');
+    return;
+  }
+
+  const pick = remaining[Math.floor(Math.random() * remaining.length)];
+
+  flashMessage(
+    `💡 Pista para "${pick.label}": ${pick.hint} 
+     (${pick.code.length} letras)`
+  );
+});
+
+
 
     // --- BOTÓN REINICIAR (versión funcional y robusta) ---
     if (resetBtn) {
