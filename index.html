@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jardín de los Recuerdos</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;500;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <!--
+  🌷 Hola, alma curiosa 🌷
+
+  Si estás leyendo esto es porque la curiosidad te trajo hasta aquí.
+  No hay secreto oculto ni premio escondido — solo un pequeño jardín
+  de palabras que florece cuando las cuidamos con ternura.
+
+  Gracias por pasar, te envío un abrazo en forma de pétalo. ✨
+
+  — Con cariño, el Jardín de los Recuerdos
+-->
+
+
+  <!-- TOPBAR -->
+  <header id="topbar" class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">🌸 <strong>Jardín</strong></div>
+      <nav class="nav">
+        <a href="#hero">Inicio</a>
+        <a href="#main">Jardín</a>
+        <a href="#about">Historia</a>
+        <a href="#gallery">Galería</a>
+        <a href="#contact">Contacto</a>
+      </nav>
+      <button id="themeToggle" class="btn small ghost" title="Cambiar tema">☼</button>
+    </div>
+  </header>
+
+  <!-- Canvas for petals -->
+  <canvas id="petalCanvas" class="petal-canvas" aria-hidden="true"></canvas>
+
+  <!-- HERO / SLIDER -->
+  <section id="hero" class="hero">
+    <div id="slider" class="slider" aria-hidden="true">
+      <div class="slide active"
+        style="background-image:url('https://i.pinimg.com/736x/fe/8d/74/fe8d74ba2ce3cee7e26cc613c27c52ca.jpg')"></div>
+      <div class="slide "
+        style="background-image:url('https://i.pinimg.com/736x/fa/f8/75/faf8758af65f1d518b1f89fc54d81ca3.jpg')"></div>
+      <div class="slide "
+        style="background-image:url('https://i.pinimg.com/736x/bf/fa/92/bffa92e6ee0f31c8c1eae8fee6821711.jpg')"></div>
+      <div class="slide "
+        style="background-image:url('https://i.pinimg.com/1200x/6c/ef/6b/6cef6bc734185d5671cd1b8b4f6f225f.jpg')"></div>
+      <div class="slide "
+        style="background-image:url('https://i.pinimg.com/736x/51/83/34/518334ed8101d3b97f89aec9c308432b.jpg')"></div>
+    </div>
+
+    <div class="hero-overlay">
+      <div class="hero-inner">
+        <div class="logo">🌿</div>
+        <h1 class="hero-title">Jardín de los Recuerdos</h1>
+        <p class="hero-sub">Haz florecer los momentos más bellos con cada palabra.</p>
+        <div class="hero-cta">
+          <button id="enterBtn" class="btn primary">Entrar al Jardín</button>
+        </div>
+      </div>
+
+      <div class="hero-typing" id="typingArea" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main id="main" class="main hidden" role="main">
+
+    <div class="container">
+
+      <!-- LEFT: GARDEN -->
+      <section class="left-column" id="gardenSection">
+        <header class="garden-header">
+          <div class="garden-title">
+            <h2>🌸 El Jardín</h2>
+            <div class="progress-wrap">
+              <svg class="progress-ring" width="64" height="64" viewBox="0 0 120 120">
+                <defs>
+                  <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100">
+                    <stop offset="0" stop-color="#ffd6d9" />
+                    <stop offset="1" stop-color="#b7ffd7" />
+                  </linearGradient>
+                </defs>
+                <circle class="ring-bg" cx="60" cy="60" r="50"></circle>
+                <circle class="ring" id="progressRing" cx="60" cy="60" r="50"></circle>
+                <text x="60" y="68" text-anchor="middle" font-size="22" id="progressText">0/6</text>
+              </svg>
+            </div>
+          </div>
+          <p class="garden-sub">Introduce códigos que representan recuerdos. Cada código hace florecer una flor y revela
+            su mensaje.</p>
+        </header>
+
+        <div class="controls">
+          <input id="codeInput" class="code-input" placeholder="Ej: ABRAZO" maxlength="20"
+            aria-label="Código de recuerdo">
+          <button id="checkBtn" class="btn primary">Florecer</button>
+          <button id="hintBtn" class="btn ghost">Pista</button>
+          <button id="resetBtn" class="btn danger">Reiniciar</button>
+        </div>
+
+        <section id="gardenArea" class="garden-area" aria-live="polite">
+          <!-- flower cards injected via JS -->
+        </section>
+
+        <div id="messageBar" class="message-bar" role="status" aria-live="polite"></div>
+      </section>
+
+      <!-- RIGHT: BOOK + FINAL -->
+      <aside class="right-column">
+        <div class="book">
+          <div class="book-header">
+            <h3>📖 Libro de Recuerdos</h3>
+            <small>Haz click en una entrada para leer el mensaje completo.</small>
+          </div>
+          <div id="bookPages" class="book-pages">
+            <!-- pages injected via JS -->
+          </div>
+        </div>
+
+        <div id="finalBox" class="final-box hidden" aria-hidden="true">
+          <h3>✨ Jardín Completo</h3>
+          <p id="finalText">Gracias por cuidar este jardín conmigo.</p>
+          <button id="viewPanorama" class="btn primary">Ver Jardín Completo</button>
+        </div>
+      </aside>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about" class="about section">
+      <div class="about-inner">
+        <div class="about-text">
+          <h2>🌷 La historia del jardín</h2>
+          <p>Dicen que en cada palabra sincera florece una semilla invisible. Este jardín fue creado para recordar esas
+            semillas: momentos, gestos y emociones que dejan aroma en el tiempo.</p>
+          <p class="muted">Siembra palabras, cosecha memorias.</p>
+        </div>
+        <div class="about-img"
+          style="background-image:url('https://hips.hearstapps.com/hmg-prod/images/gettykoishikawa-tokio-629621184-1552403653.jpg?crop=1xw:1xh;center,top')">
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="gallery section">
+      <h2>🌼 Galería Floral</h2>
+      <div class="gallery-grid">
+        <figure><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Alhambra_Generalife_2.jpg">
+          <figcaption>“Los abrazos también florecen.”</figcaption>
+        </figure>
+        <figure><img
+            src="https://hips.hearstapps.com/hmg-prod/images/keukenhof-normal-jpg-11121-1552477714.jpg?crop=1xw:1xh;center,top">
+          <figcaption>“Un paso a la vez, un jardín más.”</figcaption>
+        </figure>
+        <figure><img src="https://verdecora.es/blog/wp-content/uploads/2015/07/flores-verano-jardin.jpg">
+          <figcaption>“Pequeñas flores, grandes recuerdos.”</figcaption>
+        </figure>
+        <figure><img src="https://www.lavanguardia.com/files/image_990_484/uploads/2018/04/04/5fa43a83202d9.jpeg">
+          <figcaption>“La memoria huele a primavera.”</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact section">
+      <h2>💌 Envía tu propio recuerdo</h2>
+      <form id="memoryForm" class="memory-form">
+        <textarea id="memText" placeholder="Escribe tu recuerdo..." required></textarea>
+        <div class="row">
+          <button type="submit" class="btn primary">Sembrar recuerdo 🌹</button>
+          <button type="button" id="clearMem" class="btn ghost">Limpiar</button>
+        </div>
+        <p class="contact-note">
+          El recuerdo se guarda localmente en tu navegador y aparecerá en el Libro de Recuerdos.
+        </p>
+      </form>
+    </section>
+
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>🌸 Jardín de los Recuerdos — Hecho con cariño.</p>
+      <small>© 2025 — Inspirado en los lazos que florecen con el tiempo.</small>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-inner">
+      <button id="modalClose" class="modal-close" aria-label="Cerrar">✕</button>
+      <div id="modalContent" class="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+
+</html>
